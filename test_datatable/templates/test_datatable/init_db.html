@@ -1,0 +1,79 @@
+{% extends 'test_datatable/base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% load static %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{% static 'test_datatable/css/style_table.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+    <h1>Инициализация БД завершена</h1>
+
+    {% include 'includes/navbar.html' %}
+    <br>
+    <table class="styled-table">
+        <thead>
+            <form action="{% url 'init_db' %}" method="get">
+                Поиск по ФИО <input name="name" type="text" placeholder="Search...">
+            </form>
+
+            <form action="{% url 'init_db' %}" method="get">
+                Поиск по дате рождения <input name="name" type="text" placeholder="Search...">
+            </form>
+
+            <form action="{% url 'init_db' %}" method="get">
+                Поиск по дате и времени исследования <input name="name" type="text" placeholder="Search...">
+            </form>
+
+            <form action="{% url 'init_db' %}" method="get">
+                Поиск модальности <input name="name" type="text" placeholder="Search...">
+            </form>
+        </thead>
+    </table>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ФИО пациента</th>
+                <th>Дата рождения пациента</th>
+                <th>Идентификатор исследования во внешней системе</th>
+                <th>Дата и время исследования</th>
+                <th>Модальность исследования</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% for i in people %}
+                        <p><a href="{% url 'detail' pk=i.id %}">{{i.patient_fio}}</a></p>
+                    {% endfor %}
+                </td>
+                <td class="active-row">
+                    {% for i in people %}
+                        <p>{{i.patient_birthdate}}</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i in people %}
+                        <p>{{i.study_uid}}</p>
+                    {% endfor %}
+                </td>
+                <td class="active-row">
+                    {% for i in people %}
+                        <p>{{i.study_date}}</p>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i in people %}
+                        <p><a href="{% url 'detail' pk=i.id %}">{{i.study_modality.name}}</a></p>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% include 'includes/padinator.html' %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+
+<script>
+var myVar;
+function myFunction() {
+  myVar = setTimeout(showPage, 900);
+}
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block additional_css %} {% endblock %}
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'test_datatable/css/preloaders_style.css' %}">
+</head>
+
+<body onload="myFunction()">
+    <div id="loader"></div>
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+
+	{% block content %}
+
+    {% endblock %}
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'test_datatable/base.html' %}
+
+{% load static %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{% static 'test_datatable/css/one_patient.css' %}">
+{% endblock %}
+
+{% block title %} {{Пациент}} {% endblock %}
+
+{% block content %}
+
+{% include 'includes/navbar.html' %}
+<table class="styled-table">
+        <thead>
+            <tr>
+                <th>ФИО пациента</th>
+                <th>Дата рождения пациента</th>
+                <th>Идентификатор исследования во внешней системе</th>
+                <th>Дата и время исследования</th>
+                <th>Модальность исследования</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p>{{one_patient.patient_fio}}</p>
+                </td>
+                <td>
+                    <p>{{one_patient.patient_birthdate}}</p>
+                </td>
+                <td>
+                    <p>{{one_patient.study_uid}}</p>
+                </td>
+                <td>
+                    <p>{{one_patient.study_date}}</p>
+                </td>
+                <td>
+                    <p>{{one_patient.study_modality.name}}</p>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
